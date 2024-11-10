@@ -1,0 +1,9 @@
+// tsconfig.jest.json
+{
+    "compilerOptions": {
+      "types": ["jest", "@testing-library/jest-dom"],
+      "module": "commonjs",
+      "jsx": "react-jsx"
+    }
+  }
+  

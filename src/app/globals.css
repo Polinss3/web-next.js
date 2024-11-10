@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --neutro1: #ffffff;
+  --background1: #171717;
+  --background2: #020213;
+  --background3: #202542;
+  --color1: #2fa4da;
+  --color2: #4dbbe3;
+  --color3: #6cd2ed;
+  --color4: #8ae8f6;
+  --color5: #a8ffff;
+}
+
+@media (prefers-color-scheme: dark) {
+}
+
+body {
+  color: var(--neutro1);
+  background: var(--background1);
+  font-family: Arial, Helvetica, sans-serif;
+}
