@@ -1,5 +1,5 @@
 import PageHeader from '@/components/page-header'
-import BentoGrid from '@/components/bento-grid'
+import BentoGrid from '@/components/1bento-grid'
 
 export default function Home() {
   const bentoItems = [

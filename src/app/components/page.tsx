@@ -1,11 +1,11 @@
 "use client";
 
 import PageHeader from "@/components/page-header";
-import BentoGrid from "@/components/bento-grid";
+import BentoGrid from "@/components/1bento-grid";
 import Card from "@/components/cards/card";
 import PersonCard from "@/components/cards/person-card";
 import ProductCard from "@/components/cards/product-card";
-import BigList from "@/components/big-list";
+import BigList from "@/components/1big-list";
 
 export default function Components() {
   const bentoItems = [
