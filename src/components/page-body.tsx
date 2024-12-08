@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Breadcrumb from "./breadcrumbs";
+import Breadcrumb from "./BreadCrumbs";
 
 interface PageHeaderProps {
   title: string;

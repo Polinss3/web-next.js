@@ -1,11 +1,11 @@
 import Image from "next/image";
-import Breadcrumb from "./breadcrumbs";
+import Breadcrumb from "@/components/BreadCrumbs";
 
 interface PageHeaderProps {
   title: string;
   description: string;
   image?: string;
-}
+} 
 
 export default function PageHeader({
   title,
@@ -25,7 +25,7 @@ export default function PageHeader({
           </div>
           <div className="relative aspect-video rounded-lg z-1 overflow-hidden">
             <Image
-              src={image}
+              src={image || "/imagenes/paisaje-1.webp"}
               alt={title}
               fill
               style={{ objectFit: "cover" }}

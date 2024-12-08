@@ -1,4 +1,5 @@
 // components/BigList.tsx
+'use client';
 import React, { useState } from 'react';
 
 interface ListItem {
@@ -16,7 +17,7 @@ const BigList: React.FC<BigListProps> = ({ items, title }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <div className="w-[60%] min-h-screen p-10">
+    <div className="w-full min-h-screen px-32">
       <h2 className="text-white text-3xl font-bold mb-6">{title}</h2>
       <ul className="space-y-6">
         {items.map((item, index) => (
@@ -47,7 +48,7 @@ const BigList: React.FC<BigListProps> = ({ items, title }) => {
 
 // Lista de clases de colores para asignar a cada línea de la lista en hover
 const hoverColors = [
-  "text-blue-500",
+  "text-blue-400",
   "text-purple-500",
   "text-green-500",
   "text-red-500",

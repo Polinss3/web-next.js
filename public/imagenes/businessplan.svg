@@ -1,0 +1,9 @@
+<svg id="businessplan" xmlns="http://www.w3.org/2000/svg" width="60.025" height="60.025" viewBox="0 0 60.025 60.025">
+  <path id="Trazado_4" data-name="Trazado 4" d="M0,0H60.025V60.025H0Z" fill="none"/>
+  <path id="Trazado_5" data-name="Trazado 5" d="M23.505,10.5,11,10.5c0,4.144,5.6,7.5,12.505,7.5s12.505-3.359,12.505-7.5S30.412,3,23.505,3,11,6.359,11,10.5" transform="translate(16.512 4.503)" fill="none" stroke="#d60e2b" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+  <path id="Trazado_6" data-name="Trazado 6" d="M11,6V16c0,4.144,5.6,7.5,12.505,7.5S36.011,20.148,36.011,16V6" transform="translate(16.512 9.006)" fill="none" stroke="#d60e2b" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+  <path id="Trazado_7" data-name="Trazado 7" d="M11,10V20c0,4.144,5.6,7.5,12.505,7.5S36.011,24.148,36.011,20V10" transform="translate(16.512 15.011)" fill="none" stroke="#d60e2b" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+  <path id="Trazado_8" data-name="Trazado 8" d="M11,14V24c0,4.144,5.6,7.5,12.505,7.5S36.011,28.148,36.011,24V14" transform="translate(16.512 21.015)" fill="none" stroke="#d60e2b" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+  <path id="Trazado_9" data-name="Trazado 9" d="M13,9H6.752a3.752,3.752,0,1,0,0,7.5h2.5a3.752,3.752,0,0,1,0,7.5H3" transform="translate(4.503 13.509)" fill="none" stroke="#d60e2b" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+  <path id="Trazado_10" data-name="Trazado 10" d="M5,25.507v2.5M5,8v2.5" transform="translate(7.505 12.008)" fill="none" stroke="#d60e2b" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+</svg>

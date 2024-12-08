@@ -1,7 +1,7 @@
 "use client";
 
-import PageHeader from "@/components/page-header";
-import BentoGrid from "@/components/1bento-grid";
+import PageHeader from "@/components/PageHeader";
+import BentoGrid from "@/components/BentoGrid";
 import Card from "@/components/cards/card";
 import ScrollSection from "@/components/card-slider";
 
