@@ -83,7 +83,7 @@ const StickySection: React.FC<StickySectionProps> = ({ title, description, steps
             <p className="mt-[10px] text-white text-[16px] leading-[1.5]">{description}</p>
             <a
               href="#"
-              className="mt-[20px] inline-block px-[20px] py-[10px] bg-[#d60e2b] text-white no-underline font-bold rounded-[5px] transition-colors duration-300 ease-in-out hover:bg-[#b50c25]"
+              className="mt-[20px] inline-block px-[20px] py-[10px] bg-primary text-white no-underline font-bold rounded-[5px] transition-colors duration-300 ease-in-out hover:bg-secondary"
             >
               PIDE TU PRESUPUESTO
             </a>
@@ -93,7 +93,7 @@ const StickySection: React.FC<StickySectionProps> = ({ title, description, steps
             ref={progressBarContainerRef}
           >
             <div
-              className="absolute w-full h-0 bg-[#d60e2b] rounded-[20px] top-0 transition-all duration-100"
+              className="absolute w-full h-0 bg-primary rounded-[20px] top-0 transition-all duration-100"
               ref={progressBarRef}
               id="progressBar"
             ></div>
@@ -118,7 +118,7 @@ const StickySection: React.FC<StickySectionProps> = ({ title, description, steps
                     <div>
                       <p
                         className={`font-bold text-[20px] m-0 transition-all duration-400 ease-in ${
-                          isActive ? 'text-[#d60e2b]' : 'text-[#d60e2b44]'
+                          isActive ? 'text-primary' : 'text-[#d60e2b44]'
                         }`}
                       >
                         {stepNumber}

@@ -32,7 +32,7 @@ const CubesInformation: React.FC<CubesInformationProps> = ({
           dangerouslySetInnerHTML={{ __html: descripcion }}
         />
       </article>
-      <article className="bg-white border-2 border-gray-200 rounded-lg p-6 w-4/5 flex flex-col md:flex-row justify-between items-center">
+      <article className="bg-white text-black border-2 border-gray-200 rounded-lg p-6 w-4/5 flex flex-col md:flex-row justify-between items-center">
         {columnas.map((columna, index) => (
           <React.Fragment key={index}>
             <div className="flex flex-col items-center md:w-1/3 mb-6 md:mb-0">

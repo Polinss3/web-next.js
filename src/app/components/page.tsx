@@ -12,6 +12,8 @@ import ThreeColumnsInformation from "@/components/ThreeColumnsInformation";
 import BannerOffersCTA from "@/components/BannerOffersCTA";
 import CubesInformation from "@/components/CubesInformation";
 import Table from "@/components/Table";
+import Quote from "@/components/Quote";
+import Faq from "@/components/FAQ";
 
 export default function Components() {
   const bentoItems = [
@@ -327,7 +329,7 @@ export default function Components() {
           title={
             <span>
               List of{" "}
-              <span className="text-[--color1]">cool characteristics</span>
+              <span className="text-secondary">cool characteristics</span>
             </span>
           }
           items={BigListItems}
@@ -525,6 +527,24 @@ export default function Components() {
 
         {/* Test Case 5 */}
         <Table title="Articles" columns={columns5} data={data5} />
+
+        <Quote
+          quote="It’s good to meet you, Dr. Banner. Your work on anti-electron collisions is unparalleled. And I’m a huge fan of the way you lose control and turn into an enormous green rage monster."
+          cite="Tony Stark"
+        />
+
+        <Faq
+          questions={[
+            {
+              q: "How do I know if a product is available?",
+              a: "You can check availability in our stores.",
+            },
+            {
+              q: "How can I find prices?",
+              a: "Visit our online catalog or contact support.",
+            },
+          ]}
+        />
       </div>
     </>
   );

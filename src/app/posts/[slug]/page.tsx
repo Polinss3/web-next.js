@@ -11,6 +11,8 @@ import ThreeColumnsInformation from "@/components/ThreeColumnsInformation";
 import BannerOffersCTA from "@/components/BannerOffersCTA";
 import CubesInformation from "@/components/CubesInformation";
 import Table from "@/components/Table";
+import Quote from "@/components/Quote";
+import Faq from "@/components/FAQ";
 
 interface PostData {
   title: string;
@@ -26,12 +28,12 @@ interface PageProps {
 
 // Función para transformar attributes JSX (ej: columns={...}) en cadenas JSON válidas
 function fixJsonArrayAttr(attrName: string, content: string) {
-  const regex = new RegExp(`${attrName}=\\{([^}]*)\\}`, 'g');
+  const regex = new RegExp(`${attrName}=\\{([^}]*)\\}`, "g");
   return content.replace(regex, (match, p1) => {
     let arrStr = p1
-      .replace(/\n/g, ' ')
-      .replace(/\r/g, ' ')
-      .replace(/\s+/g, ' ')
+      .replace(/\n/g, " ")
+      .replace(/\r/g, " ")
+      .replace(/\s+/g, " ")
       .replace(/'/g, '"')
       .trim();
     try {
@@ -58,8 +60,8 @@ export default async function Page({ params }: PageProps) {
     let fixedContent = data.content;
 
     // Arreglar columns y data del componente Table
-    fixedContent = fixJsonArrayAttr('columns', fixedContent);
-    fixedContent = fixJsonArrayAttr('data', fixedContent);
+    fixedContent = fixJsonArrayAttr("columns", fixedContent);
+    fixedContent = fixJsonArrayAttr("data", fixedContent);
 
     data.content = fixedContent;
 
@@ -156,10 +158,7 @@ export default async function Page({ params }: PageProps) {
             } catch {}
           }
           return (
-            <Accordeon
-              title={attribs?.titulo || ""}
-              content={contenido}
-            />
+            <Accordeon title={attribs?.titulo || ""} content={contenido} />
           );
         }
 
@@ -213,11 +212,17 @@ export default async function Page({ params }: PageProps) {
             } catch {}
           }
           return (
-            <Table
-              title={attribs?.title}
-              columns={columns}
-              data={tdata}
-            />
+            <Table title={attribs?.title} columns={columns} data={tdata} />
+          );
+        }
+        if (name === "Quote") {
+          return (
+            <Quote quote={attribs?.quote || ""} cite={attribs?.cite || ""} />
+          );
+        }
+        if (name === "Faq") {
+          return (
+            <Faq questions={attribs?.questions ? JSON.parse(attribs.questions) : [{ q: "Hay preguntas?", a: "Nop" }]} />
           );
         }
 

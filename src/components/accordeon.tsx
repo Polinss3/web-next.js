@@ -40,17 +40,17 @@ const Accordeon: React.FC<AccordeonProps> = ({ title, content }) => {
               >
                 {/* Encabezado del Ítem */}
                 <div
-                  className="flex justify-between items-center p-4 bg-red-100 cursor-pointer hover:bg-red-200 transition-colors"
+                  className="flex justify-between items-center p-4 bg-primary cursor-pointer hover:bg-secondary transition-colors"
                   onClick={() => toggleItem(index)}
                 >
-                  <h3 className="flex items-center text-lg font-semibold text-gray-800">
-                    <span className="text-2xl font-bold text-red-600 mr-3">{numero}</span>
+                  <h3 className="flex items-center text-lg font-semibold text-white">
+                    <span className="text-2xl font-bold text-accent mr-3">{numero}</span>
                     {item.title}
                   </h3>
                   {/* Icono de Toggle */}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className={`h-6 w-6 text-red-600 transition-transform ${
+                    className={`h-6 w-6 text-primary transition-transform ${
                       isOpen ? 'transform rotate-45' : ''
                     }`}
                     fill="none"
@@ -67,7 +67,7 @@ const Accordeon: React.FC<AccordeonProps> = ({ title, content }) => {
                 </div>
                 {/* Contenido del Ítem */}
                 {isOpen && (
-                  <div className="p-4 text-gray-700" dangerouslySetInnerHTML={{ __html: item.description }} />
+                  <div className="p-4 text-white bg-secondary" dangerouslySetInnerHTML={{ __html: item.description }} />
                 )}
               </div>
             );
