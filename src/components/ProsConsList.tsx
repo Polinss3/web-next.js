@@ -18,7 +18,7 @@ const ProsConsLists: React.FC<ProsConsListsProps> = ({
   pros,
 }) => {
   return (
-    <section className="flex flex-col items-center justify-center w-full h-[500px] gap-8 ">
+    <section className="flex flex-col items-center justify-center w-full h-auto gap-8 py-32">
       {/* Título y Descripción */}
       <article className="flex flex-col items-center justify-center w-3/5 text-center">
         <h2 className="text-2xl font-bold">{titulo}</h2>

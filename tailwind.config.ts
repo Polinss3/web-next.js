@@ -10,6 +10,7 @@ const config: Config = {
     extend: {
       colors: {
         primary: '#005BE5', // Azul
+        "primary-transparent": "#005BE5CC",
         secondary: '#0096E5', // Azul claro
         accent: '#05E6FF', // Cyan
         contrast: '#FF8C0A',

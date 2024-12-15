@@ -1,5 +1,6 @@
 import React from "react";
 import parse, { domToReact, Element, DOMNode } from "html-react-parser";
+import { BACK_URL } from "@/config/config";
 import PageHeader from "@/components/PageHeader";
 import Card from "@/components/cards/card";
 import BentoGrid from "@/components/BentoGrid";
@@ -49,7 +50,7 @@ export default async function Page({ params }: PageProps) {
   const { slug } = params;
 
   try {
-    const res = await fetch(`http://127.0.0.1:8000/get-post/${slug}/`, {
+    const res = await fetch(`${BACK_URL}/get-post/${slug}/`, {
       cache: "no-store",
     });
     if (!res.ok) {

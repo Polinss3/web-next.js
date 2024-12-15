@@ -9,7 +9,7 @@ interface TableProps {
 const Table: React.FC<TableProps> = ({ title, columns, data }) => {
   return (
     <div className="py-1 bg-blueGray-50">
-      <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4 mx-auto mt-24">
+      <div className="w-full xl:w-11/12 2xl:w-10/12 mb-12 xl:mb-0 px-4 mx-auto mt-24">
         <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded border-2">
           {title && (
             <div className="rounded-t mb-0 px-4 py-3 border-0">
@@ -28,7 +28,7 @@ const Table: React.FC<TableProps> = ({ title, columns, data }) => {
                   {columns.map((col) => (
                     <th
                       key={col}
-                      className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+                      className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 font-semibold text-left"
                     >
                       {col}
                     </th>
@@ -41,7 +41,7 @@ const Table: React.FC<TableProps> = ({ title, columns, data }) => {
                     {columns.map((col) => (
                       <td
                         key={col}
-                        className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-blueGray-700"
+                        className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs p-4 text-blueGray-700"
                       >
                         {row[col]}
                       </td>

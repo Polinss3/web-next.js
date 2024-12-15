@@ -21,10 +21,10 @@ const Faq: React.FC<FaqProps> = ({ questions }) => {
       <div className="lg:w-5/6 w-full mx-auto">
         {questions.map((item, index) => (
           <div key={index}>
-            <hr className="w-full lg:mt-10 md:mt-12 md:mb-8 my-8" />
+            <hr className="w-full" />
             <div className="w-full md:px-6">
               <div
-                className="flex justify-between items-center w-full cursor-pointer"
+                className="flex justify-between items-center w-full cursor-pointer py-4 md:py-6 lg:py-8"
                 id="mainHeading"
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
               >
@@ -58,7 +58,7 @@ const Faq: React.FC<FaqProps> = ({ questions }) => {
                 </div>
               </div>
               {openIndex === index && (
-                <div className="mt-6 w-full" id="menu">
+                <div className="mb-4 md:mb-6 lg:mb-8 w-full" id="menu">
                   <p className="text-base leading-6 text-gray-600 dark:text-gray-300 font-normal">
                     {item.a}
                   </p>
@@ -67,7 +67,7 @@ const Faq: React.FC<FaqProps> = ({ questions }) => {
             </div>
           </div>
         ))}
-        <hr className="w-full lg:mt-10 my-8" />
+        <hr className="w-full" />
       </div>
     </div>
   );
