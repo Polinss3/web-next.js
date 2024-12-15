@@ -1,126 +1,124 @@
-// Footer.tsx
+'use client';
+import Link from "next/link";
+import React, { useState } from "react";
+import {
+  SITE_NAME,
+  SITE_SLOGAN,
+  INSTAGRAM_PROFILE,
+  FACEBOOK_PROFILE,
+  XTWITTER_PROFILE,
+  LINKEDIN_PROFILE,
+  TIKTOK_PROFILE,
+  BACK_URL,
+} from "@/config/config";
+import Input from "@/components/Layout/UI/Input";
+import StyledButton from "@/components/Layout/UI/StyledButton";
+import { Toaster, toast } from 'sonner';
 
-import React, { useState } from 'react';
-import Link from 'next/link'; // Si usas Next.js
-import Input from './UI/Input'; // Asegúrate de tener este componente o reemplaza con un <input>
-import { BACK_URL } from '@/config/config';
+export default function Footer() {
+  const [nombre, setNombre] = useState("");
+  const [apellidos, setApellidos] = useState("");
+  const [email, setEmail] = useState("");
 
-const Footer: React.FC = () => {
-  const [formData, setFormData] = useState({
-    nombre: '',
-    apellidos: '',
-    email: '',
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const res = await fetch(`${BACK_URL}/api/newsletter`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nombre, apellidos, email }),
+    });
 
-    try {
-      const response = await fetch(`${BACK_URL}/api/newsletter`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        console.log('Formulario enviado con éxito');
-        // Aquí puedes agregar lógica para mostrar una notificación al usuario
-      } else {
-        console.error('Error al enviar el formulario');
-      }
-    } catch (error) {
-      console.error('Error de red:', error);
+    if (res.ok) {
+      setNombre("");
+      setApellidos("");
+      setEmail("");
+      toast.success("Suscripción exitosa");
+    } else {
+      toast.error("Error al suscribirse");
     }
   };
 
   return (
-    <footer className="bg-gray-800 text-white p-8">
-      <div className="flex flex-wrap">
+    <footer className="bg-black text-white py-10 font-sans">
+      <Toaster position="bottom-right" richColors />
+      <div className="max-w-screen mx-auto flex justify-between space-x-8 px-[10%]">
         {/* Primera columna */}
-        <div className="flex-1 space-y-1 text-sm">
-          <h2 className="text-xl">Categorías</h2>
-          <ul className="space-y-1">
+        <div className="flex-1 space-y-5">
+          <h2 className="text-xl">{SITE_NAME}</h2>
+          <p className="text-sm">{SITE_SLOGAN}</p>
+          <ul className="space-y-1 text-sm">
             <li>
-              <Link href="/categoria-1">Categoría 1</Link>
+              <Link href="/terminos-y-condiciones">Términos y condiciones</Link>
             </li>
             <li>
-              <Link href="/categoria-2">Categoría 2</Link>
+              <Link href="/politica-de-privacidad">Política de privacidad</Link>
             </li>
-            {/* Agrega más enlaces según sea necesario */}
+            <li>
+              <Link href="/politica-de-cookies">Política de cookies</Link>
+            </li>
           </ul>
         </div>
         {/* Segunda columna */}
-        <div className="flex-1 space-y-1 text-sm">
-          <h2 className="text-xl">Enlaces útiles</h2>
-          <ul className="space-y-1">
+        <div className="flex-1 space-y-5">
+          <h2 className="text-xl">Contact Us</h2>
+          <ul className="space-y-1 text-sm">
             <li>
-              <Link href="/enlace-1">Enlace 1</Link>
+              <a href={INSTAGRAM_PROFILE} target="_blank" rel="noopener noreferrer">Instagram</a>
             </li>
             <li>
-              <Link href="/enlace-2">Enlace 2</Link>
+              <a href={XTWITTER_PROFILE} target="_blank" rel="noopener noreferrer">X/Twitter</a>
             </li>
-            {/* Agrega más enlaces según sea necesario */}
+            <li>
+              <a href={LINKEDIN_PROFILE} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </li>
+            <li>
+              <a href={FACEBOOK_PROFILE} target="_blank" rel="noopener noreferrer">Facebook</a>
+            </li>
+            <li>
+              <a href={TIKTOK_PROFILE} target="_blank" rel="noopener noreferrer">TikTok</a>
+            </li>
           </ul>
         </div>
         {/* Tercera columna */}
         <div className="flex-1">
-          <h2 className="text-xl mb-4">Únete a nuestro boletín</h2>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <h2 className="text-xl">Join our newsletter</h2>
+          <form onSubmit={handleSubmit}>
             <Input
               type="text"
-              name="nombre"
               placeholder="Nombre"
-              value={formData.nombre}
-              onChange={handleChange}
-              className="w-full p-2 text-black"
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)}
             />
             <Input
               type="text"
-              name="apellidos"
               placeholder="Apellidos"
-              value={formData.apellidos}
-              onChange={handleChange}
-              className="w-full p-2 text-black"
+              value={apellidos}
+              onChange={(e) => setApellidos(e.target.value)}
             />
             <Input
               type="email"
-              name="email"
               placeholder="Correo electrónico"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full p-2 text-black"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
-            <button
-              type="submit"
-              className="bg-white text-black px-4 py-2 rounded-md"
-            >
+            <StyledButton type="submit">
               Enviar
-            </button>
+            </StyledButton>
           </form>
         </div>
         {/* Cuarta columna */}
         <div className="flex-1 space-y-1 text-sm">
-          <h2 className="text-xl">Descubre más:</h2>
+          <h2 className="text-xl">Discover more: </h2>
           <ul className="space-y-1">
             <li>
-              <Link href="/components">Componentes</Link>
+              <Link href="/components">Components</Link>
             </li>
             <li>
-              <Link href="/posts">Publicaciones</Link>
+              <Link href="/posts">Posts</Link>
             </li>
-            {/* Agrega más enlaces según sea necesario */}
           </ul>
         </div>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}
