@@ -14,6 +14,7 @@ import CubesInformation from "@/components/CubesInformation";
 import Table from "@/components/Table";
 import Quote from "@/components/Quote";
 import Faq from "@/components/FAQ";
+import Conclusion from "@/components/Conclusion";
 
 export default function Components() {
   const bentoItems = [
@@ -543,6 +544,18 @@ export default function Components() {
               q: "How can I find prices?",
               a: "Visit our online catalog or contact support.",
             },
+          ]}
+        />
+
+        <Conclusion
+          title="Conclusión"
+          conclusionText="En resumen, esta página te ha guiado a través de las ideas clave que necesitas conocer."
+          points={[
+            "Idea principal 1",
+            "Idea principal 2",
+            "Idea principal 3",
+            "Idea principal 4",
+            "Idea principal 5",
           ]}
         />
       </div>

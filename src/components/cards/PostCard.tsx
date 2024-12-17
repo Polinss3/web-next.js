@@ -7,14 +7,25 @@ interface PostCardProps {
   description: string;
   imageSrc: string;
   linkSrc: string;
+  width?: string;
+  height?: string;
 }
 
-const PostCard: React.FC<PostCardProps> = ({ title, description, imageSrc, linkSrc }) => {
+const PostCard: React.FC<PostCardProps> = ({
+  title,
+  description,
+  imageSrc,
+  linkSrc,
+  width = "w-96",
+  height = "h-56",
+}) => {
   return (
     <div className="flex justify-center items-center">
       <div className="max-w-[720px] mx-auto">
         <Link href={linkSrc}>
-          <div className="relative mt-6 w-96 h-56 text-white shadow-md bg-clip-border rounded-xl overflow-hidden cursor-pointer group">
+          <div
+            className={`relative mt-6 ${width} ${height} text-white shadow-md bg-clip-border rounded-xl overflow-hidden cursor-pointer group`}
+          >
             <div className="absolute inset-0 transition-transform duration-300 transform group-hover:scale-105">
               <Image
                 src={imageSrc}
@@ -29,9 +40,7 @@ const PostCard: React.FC<PostCardProps> = ({ title, description, imageSrc, linkS
               <h2 className="font-sans text-xl font-semibold leading-snug tracking-normal">
                 {title}
               </h2>
-              <p className="text-base font-light leading-relaxed">
-                {description}
-              </p>
+              <p className="text-base font-light leading-relaxed">{description}</p>
             </div>
           </div>
         </Link>

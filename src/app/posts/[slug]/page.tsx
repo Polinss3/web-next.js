@@ -14,6 +14,7 @@ import CubesInformation from "@/components/CubesInformation";
 import Table from "@/components/Table";
 import Quote from "@/components/Quote";
 import Faq from "@/components/FAQ";
+import Conclusion from "@/components/Conclusion";
 
 interface PostData {
   title: string;
@@ -224,6 +225,13 @@ export default async function Page({ params }: PageProps) {
         if (name === "Faq") {
           return (
             <Faq questions={attribs?.questions ? JSON.parse(attribs.questions) : [{ q: "Hay preguntas?", a: "Nop" }]} />
+          );
+        }
+        if (name === "Conclusion") {
+          console.log("attribs conclusion");
+          console.log(attribs);
+          return (
+            <Conclusion title={attribs?.title} conclusionText={attribs?.conclusiontext} points={JSON.parse(attribs?.points) || ["No hemos encontrado ideas :("] } />
           );
         }
 

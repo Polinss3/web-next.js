@@ -1,22 +1,40 @@
-'use client'
+'use client';
 
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { ChevronRight } from 'lucide-react'
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { ChevronRight } from 'lucide-react';
 
-export default function Breadcrumb() {
-  const pathname = usePathname()
-  const segments = pathname.split('/').filter(Boolean)
+interface BreadcrumbProps {
+  postTitle?: string;
+}
+
+export default function Breadcrumb({ postTitle }: BreadcrumbProps) {
+  const pathname = usePathname();
+  const segments = pathname.split('/').filter(Boolean);
 
   return (
-    <nav aria-label="Breadcrumb" className="flex items-center space-x-2 text-sm text-muted-foreground">
+    <nav
+      aria-label="Breadcrumb"
+      className="flex items-center space-x-2 text-sm text-muted-foreground"
+    >
       <Link href="/" className="hover:text-primary transition-colors">
         Home
       </Link>
       {segments.map((segment, index) => {
-        const href = `/${segments.slice(0, index + 1).join('/')}`
-        const isLast = index === segments.length - 1
-        const title = segment.charAt(0).toUpperCase() + segment.slice(1)
+        const isLast = index === segments.length - 1;
+        const href = `/${segments.slice(0, index + 1).join('/')}`;
+
+        // Utilizar el título del post si es el último segmento y se proporciona postTitle
+        let title = segment.replace(/-/g, ' ');
+        if (isLast && postTitle) {
+          title = postTitle;
+        } else {
+          // Capitalizar la primera letra de cada palabra en el segmento
+          title = title
+            .split(' ')
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+        }
 
         return (
           <span key={href} className="flex items-center">
@@ -29,8 +47,8 @@ export default function Breadcrumb() {
               </Link>
             )}
           </span>
-        )
+        );
       })}
     </nav>
-  )
+  );
 }
