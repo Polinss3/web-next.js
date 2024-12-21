@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import PageHeader from "@/components/PageHeader";
+import ProductForm from "@/components/forms/ProductForm";
 import { BACK_URL } from "@/config/config";
 
 interface ProductData {
@@ -88,6 +89,11 @@ export default function ProductPage({ params }: PageProps) {
     checkImageURL(product.thumbnail);
   }, [product?.thumbnail]);
 
+  const handleFormSubmit = (formData: { name: string; email: string; quantity: number }) => {
+    console.log("Formulario enviado:", formData);
+    // Aquí puedes manejar el envío de datos del formulario
+  };
+
   if (error) {
     return <div>{error}</div>;
   }
@@ -121,65 +127,8 @@ export default function ProductPage({ params }: PageProps) {
         </div>
 
         {/* Columna derecha: Formulario de pedido */}
-        <div className="md:w-1/3 bg-gray-100 p-6 rounded-lg shadow-md">
-          <h3 className="text-xl font-bold mb-4">Haz tu pedido</h3>
-          <form>
-            <div className="mb-4">
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Nombre
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                className="w-full p-2 border border-gray-300 rounded-md"
-                placeholder="Tu nombre"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Correo Electrónico
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                className="w-full p-2 border border-gray-300 rounded-md"
-                placeholder="Tu correo electrónico"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label
-                htmlFor="quantity"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Cantidad
-              </label>
-              <input
-                type="number"
-                id="quantity"
-                name="quantity"
-                className="w-full p-2 border border-gray-300 rounded-md"
-                min="1"
-                placeholder="Número de unidades"
-                required
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
-            >
-              Enviar Pedido
-            </button>
-          </form>
+        <div className="md:w-1/3">
+          <ProductForm onSubmit={handleFormSubmit} />
         </div>
       </div>
     </div>

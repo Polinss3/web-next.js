@@ -1,9 +1,9 @@
 // components/Input.tsx
 import React, { InputHTMLAttributes } from 'react';
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {}
+interface StyledInputProps extends InputHTMLAttributes<HTMLInputElement> {}
 
-const Input: React.FC<InputProps> = (props) => {
+const StyledInput: React.FC<StyledInputProps> = (props) => {
   return (
     <div className="flex justify-end mt-5 mb-5">
       <input
@@ -14,4 +14,4 @@ const Input: React.FC<InputProps> = (props) => {
   );
 };
 
-export default Input;
+export default StyledInput;
