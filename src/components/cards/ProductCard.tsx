@@ -42,9 +42,9 @@ export default function ProductCard({
       {/* Contenido mostrado al hacer hover */}
       <div className="absolute inset-0 flex items-center justify-center z-20 bg-[#313131]/70 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
         <div className="textBox flex flex-col items-center justify-center gap-4">
-          <p className="text-lg font-bold">{title}</p>
-          <span className="text-sm text-gray-400">{subtitle}</span>
-          <p className="text-md font-bold">{price}€</p>
+          <p className="text-lg font-bold text-center">{title}</p>
+          <span className="text-sm text-gray-400 text-center">{subtitle}</span>
+          <p className="text-md font-bold text-center">{price}€</p>
         </div>
       </div>
     </a>
