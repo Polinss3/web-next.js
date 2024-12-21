@@ -5,12 +5,27 @@ interface ProductCardProps {
   productName: string;
   productDescription: string;
   productPrice: string;
+  productThumbnail: string;
+  productLink: string;
   features: string[];
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ productName, productDescription, productPrice, features }) => {
+const ProductCard: React.FC<ProductCardProps> = ({
+  productName,
+  productDescription,
+  productPrice,
+  productThumbnail,
+  productLink,
+  features,
+}) => {
   return (
     <div className="flex flex-col bg-[--background3] rounded-3xl shadow-lg h-auto w-80">
+      {/* Imagen del producto */}
+      <img
+        src={productThumbnail}
+        alt={productName}
+        className="w-full h-48 object-cover rounded-t-3xl"
+      />
       <div className="px-6 py-8 sm:p-10 sm:pb-6">
         <div className="grid items-center justify-center w-full grid-cols-1 text-left">
           <div>
@@ -20,11 +35,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ productName, productDescripti
             <p className="mt-2 text-sm text-[--neutro1]">{productDescription}</p>
           </div>
           <div className="mt-6">
-            <p>
-              <span className="text-5xl font-light tracking-tight text-[--neutro1]">
-                {productPrice}
-              </span>
-              <span className="text-base font-medium text-[--neutro1]"> /mo </span>
+            <p className="text-5xl font-light tracking-tight text-[--neutro1]">
+              {productPrice}€
             </p>
           </div>
         </div>
@@ -33,9 +45,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ productName, productDescripti
         <a
           aria-describedby="tier-company"
           className="flex items-center justify-center w-full px-6 py-2.5 text-center text-[--background1] text-bold duration-200 bg-[--color1] border-2 border-[--color5] rounded-full hover:bg-transparent hover:border-[--color1] hover:text-[--color1] focus:outline-none focus-visible:outline-black text-md focus-visible:ring-black"
-          href="#"
+          href={productLink}
         >
-          Get started
+          Ver producto
         </a>
       </div>
       <div className="px-6 pb-6">

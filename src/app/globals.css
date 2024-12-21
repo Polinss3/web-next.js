@@ -17,8 +17,15 @@
 @media (prefers-color-scheme: dark) {
 }
 
+@font-face {
+  font-family: 'Segoe UI';
+  src: url('/fonts/SegoeUI.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   color: var(--neutro1);
   background: var(--background1);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Segoe UI', ui-sans-serif, system-ui;
 }

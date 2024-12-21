@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['"Segoe UI"', 'ui-sans-serif', 'system-ui'],
+      },
       colors: {
         primary: '#005BE5', // Azul
         "primary-transparent": "#005BE5CC",

@@ -4,7 +4,7 @@ import PageHeader from "@/components/PageHeader";
 import BentoGrid from "@/components/BentoGrid";
 import Card from "@/components/cards/card";
 import PersonCard from "@/components/cards/person-card";
-import ProductCard from "@/components/cards/product-card";
+import ProductCard from "@/components/cards/ProductCardOld";
 import BigList from "@/components/BigList";
 import StickySection from "@/components/StickySection";
 import Accordeon from "@/components/Accordeon";

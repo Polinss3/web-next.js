@@ -15,7 +15,7 @@ const Faq: React.FC<FaqProps> = ({ questions }) => {
 
   return (
     <div className="lg:container lg:mx-auto lg:py-16 md:py-12 md:px-6 py-12 px-4">
-      <h1 className="text-center dark:text-white lg:text-4xl text-3xl lg:leading-9 leading-7 text-gray-800 font-semibold">
+      <h1 className="text-center dark:text-white lg:text-4xl text-3xl lg:leading-9 leading-7 text-gray-800 font-semibold mb-8">
         FAQ&apos;s
       </h1>
       <div className="lg:w-5/6 w-full mx-auto">

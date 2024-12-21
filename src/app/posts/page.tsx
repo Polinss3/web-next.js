@@ -1,9 +1,10 @@
 // src/app/posts/page.tsx
 import React from 'react';
+import { BACK_URL } from "@/config/config";
 import PostCard from '@/components/cards/PostCard';
 
 export default async function Page() {
-  const res = await fetch('http://127.0.0.1:8000/get-posts/');
+  const res = await fetch(`${BACK_URL}/get-posts/`);
   const data = await res.json();
   console.log("data");
   console.log(data);
