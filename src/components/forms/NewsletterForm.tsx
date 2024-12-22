@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Input from "@/components/Layout/UI/StyledInput";
 import StyledButton from "@/components/Layout/UI/StyledButton";
 import { Toaster, toast } from "sonner";
+import axios from "axios"; // Usa Axios para llamadas HTTP
 import { BACK_URL } from "@/config/config";
 
 interface NewsletterFormProps {
@@ -14,23 +15,31 @@ const NewsletterForm: React.FC<NewsletterFormProps> = ({ onSuccess }) => {
   const [nombre, setNombre] = useState("");
   const [apellidos, setApellidos] = useState("");
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false); // Indicador de carga
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const res = await fetch(`${BACK_URL}/api/newsletter`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ nombre, apellidos, email }),
-    });
+    setLoading(true);
 
-    if (res.ok) {
-      setNombre("");
-      setApellidos("");
-      setEmail("");
-      toast.success("Suscripción exitosa");
-      if (onSuccess) onSuccess(); // Ejecuta el callback si está definido
-    } else {
+    try {
+      const response = await axios.post(`${BACK_URL}/api/newsletter`, {
+        nombre,
+        apellidos,
+        email,
+      });
+
+      if (response.status === 200) {
+        setNombre("");
+        setApellidos("");
+        setEmail("");
+        toast.success("Suscripción exitosa");
+        if (onSuccess) onSuccess(); // Ejecuta el callback si está definido
+      }
+    } catch (error) {
+      console.error(error);
       toast.error("Error al suscribirse");
+    } finally {
+      setLoading(false); // Termina la carga
     }
   };
 
@@ -45,6 +54,7 @@ const NewsletterForm: React.FC<NewsletterFormProps> = ({ onSuccess }) => {
           value={nombre}
           onChange={(e) => setNombre(e.target.value)}
           required
+          disabled={loading} // Deshabilitar inputs durante la carga
         />
         <Input
           type="text"
@@ -52,6 +62,7 @@ const NewsletterForm: React.FC<NewsletterFormProps> = ({ onSuccess }) => {
           value={apellidos}
           onChange={(e) => setApellidos(e.target.value)}
           required
+          disabled={loading}
         />
         <Input
           type="email"
@@ -59,8 +70,11 @@ const NewsletterForm: React.FC<NewsletterFormProps> = ({ onSuccess }) => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
+          disabled={loading}
         />
-        <StyledButton type="submit">Enviar</StyledButton>
+        <StyledButton type="submit" disabled={loading}>
+          {loading ? "Enviando..." : "Enviar"}
+        </StyledButton>
       </form>
     </div>
   );

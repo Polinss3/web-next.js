@@ -1,105 +1,67 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import PageHeader from "@/components/PageHeader";
 import ProductForm from "@/components/forms/ProductForm";
+import PhotoGallery from "@/components/PhotoGallery";
+import ProductInfo from "@/components/ProductInfo";
 import { BACK_URL } from "@/config/config";
 
 interface ProductData {
   name: string;
-  url: string;
+  slug: string;
   description: string;
   price: number;
-  thumbnail: string;
-  features: string[];
+  thumbnail?: string;
+  features?: Record<string, any>;
+  images?: string[];
   created_at: string;
   updated_at: string;
 }
 
 interface PageProps {
-  params: Promise<{
-    slug: string;
-  }>;
+  params: Promise<{ slug: string }>;
 }
 
 export default function ProductPage({ params }: PageProps) {
   const [product, setProduct] = useState<ProductData | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [slug, setSlug] = useState<string | null>(null);
 
-  // Imagen final, con fallback a "/images/components.webp"
-  const [productImage, setProductImage] = useState<string>("/images/components.webp");
-
-  // Extraer slug desde params usando React.use()
   useEffect(() => {
-    async function fetchSlug() {
-      const resolvedParams = await params;
-      setSlug(resolvedParams.slug);
-    }
-    fetchSlug();
-  }, [params]);
+    let isMounted = true;
 
-  // Fetch del producto basado en el slug
-  useEffect(() => {
-    if (!slug) return;
-
-    const fetchProduct = async () => {
+    (async () => {
       try {
+        const { slug } = await params;
         const res = await fetch(`${BACK_URL}/get-product/${slug}/`, {
           cache: "no-store",
         });
-
         if (!res.ok) {
           throw new Error("Error al obtener el producto");
         }
-
-        const data: ProductData = await res.json();
-        setProduct(data);
-      } catch (err) {
-        console.error(err);
-        setError("Error al cargar el producto.");
-      }
-    };
-
-    fetchProduct();
-  }, [slug]);
-
-  // Verificar si la URL de la imagen es válida; si no, usar la imagen por defecto
-  useEffect(() => {
-    if (!product?.thumbnail) {
-      // Si no hay thumbnail, usamos la predeterminada sin comprobar nada
-      setProductImage("/images/components.webp");
-      return;
-    }
-
-    async function checkImageURL(url: string) {
-      try {
-        const headRes = await fetch(url, { method: "HEAD" });
-        // Si la imagen responde con status 200, usamos esa; si no, fallback
-        if (headRes.ok) {
-          setProductImage(url);
-        } else {
-          setProductImage("/images/components.webp");
+        const data = await res.json();
+        if (isMounted) {
+          setProduct(data);
         }
-      } catch {
-        setProductImage("/images/components.webp");
+      } catch (err: any) {
+        console.error(err);
+        if (isMounted) {
+          setError("Error al cargar el producto.");
+        }
       }
-    }
+    })();
 
-    checkImageURL(product.thumbnail);
-  }, [product?.thumbnail]);
-
-  const handleFormSubmit = (formData: { name: string; email: string; quantity: number }) => {
-    console.log("Formulario enviado:", formData);
-    // Aquí puedes manejar el envío de datos del formulario
-  };
+    return () => {
+      isMounted = false;
+    };
+  }, [params]);
 
   if (error) {
-    return <div>{error}</div>;
+    return <div className="text-white">{error}</div>;
   }
 
   if (!product) {
-    return <div>Cargando...</div>;
+    return <div className="text-white">Cargando...</div>;
   }
 
   return (
@@ -107,28 +69,28 @@ export default function ProductPage({ params }: PageProps) {
       <PageHeader
         title={product.name}
         description={product.description}
-        image={productImage}
+        image={product.thumbnail || "/images/placeholder.png"}
       />
-
       <div className="container mx-auto px-4 mt-10 flex flex-col md:flex-row gap-6">
-        {/* Columna izquierda: Información del producto */}
         <div className="flex-1">
-          <h2 className="text-2xl font-bold mt-6">{product.name}</h2>
-          <p className="text-gray-600 mt-4">{product.description}</p>
-          <h3 className="text-xl font-semibold mt-6">Características:</h3>
-          <ul className="list-disc pl-5 mt-2">
-            {product.features.map((feature, index) => (
-              <li key={index} className="text-gray-700">
-                {feature}
-              </li>
-            ))}
-          </ul>
-          <p className="text-lg font-bold mt-6">Precio: {product.price}€</p>
+          <PhotoGallery
+            images={
+              product.images?.length
+                ? product.images
+                : ["/images/placeholder.png"]
+            }
+          />
         </div>
-
-        {/* Columna derecha: Formulario de pedido */}
-        <div className="md:w-1/3">
-          <ProductForm onSubmit={handleFormSubmit} />
+        <div className="flex-1">
+          <ProductInfo
+            name={product.name}
+            description={product.description}
+            price={product.price}
+            features={product.features || {}}
+          />
+        </div>
+        <div className="flex-1">
+          <ProductForm productSlug={product.slug} />
         </div>
       </div>
     </div>

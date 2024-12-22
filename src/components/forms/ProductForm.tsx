@@ -1,106 +1,122 @@
 "use client";
 
-import React, { useState } from "react";
-import { BACK_URL } from "@/config/config";
+import React, { useState, useEffect } from "react";
+import Input from "@/components/Layout/UI/StyledInput";
 import StyledButton from "@/components/Layout/UI/StyledButton";
-import StyledInput from "@/components/Layout/UI/StyledInput";
 import { Toaster, toast } from "sonner";
+import { BACK_URL } from "@/config/config";
 
-const ProductForm: React.FC = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [quantity, setQuantity] = useState<number | "">("");
+const ProductForm: React.FC<{ productSlug: string }> = ({ productSlug }) => {
+  const [formData, setFormData] = useState({
+    nombre: "",
+    apellidos: "",
+    email: "",
+    quantity: 1,
+  });
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  // Guardamos la URL de la página actual
+  const [pageUrl, setPageUrl] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setPageUrl(window.location.href);
+    }
+  }, []);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: name === "quantity" ? Number(value) : value,
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+
+    // Incluimos la URL de la página en la petición
+    const requestData = {
+      ...formData,
+      product_slug: productSlug,
+      page_url: pageUrl,
+    };
 
     try {
-      const response = await fetch(`${BACK_URL}/submit-product-form/`, {
+      // toast("Enviando datos...", { duration: 2000 });
+      console.log("Enviando datos...", requestData);
+
+      const response = await fetch(`${BACK_URL}/api/product-orders/`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams({
-          name,
-          email,
-          quantity: quantity.toString(),
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(requestData),
       });
 
-      if (!response.ok) {
-        throw new Error("Error al enviar el formulario");
+      if (response.ok) {
+        // toast.success("Formulario enviado con éxito");
+        console.log("Formulario enviado con éxito");
+        setFormData({ nombre: "", apellidos: "", email: "", quantity: 1 });
+      } else {
+        const errorData = await response.json();
+        const errorMessage = Array.isArray(errorData.detail)
+          ? errorData.detail.map((err: any) => err.msg).join(", ")
+          : errorData.detail;
+        console.error(`Error: ${errorMessage}`);
+        // toast.error(`Error: ${errorMessage}`);
       }
-
-      // Mostrar notificación de éxito
-      toast.success("Formulario enviado correctamente");
-
-      // Limpiar los campos con un retraso para evitar conflicto en el renderizado
-      setTimeout(() => {
-        setName("");
-        setEmail("");
-        setQuantity("");
-      }, 300); // 300 ms es suficiente
     } catch (error) {
-      // Mostrar notificación de error
-      toast.error("Error al enviar el formulario. Inténtalo de nuevo.");
-      console.error("Error al enviar el formulario:", error);
+      console.error("Ocurrió un error al enviar el formulario:", error);
+      // toast.error("Error inesperado al enviar el formulario");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="bg-black p-6 rounded-lg shadow-md text-white">
+    <div className="p-6 rounded-lg shadow-md">
       <Toaster position="bottom-right" richColors />
-      <h3 className="text-xl font-bold mb-4">Haz tu pedido</h3>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="name" className="block text-sm font-medium">
-            Nombre
-          </label>
-          <StyledInput
-            type="text"
-            id="name"
-            name="name"
-            placeholder="Tu nombre"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-sm font-medium">
-            Correo Electrónico
-          </label>
-          <StyledInput
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Tu correo electrónico"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="quantity" className="block text-sm font-medium">
-            Cantidad
-          </label>
-          <StyledInput
-            type="number"
-            id="quantity"
-            name="quantity"
-            min="1"
-            placeholder="Número de unidades"
-            value={quantity}
-            onChange={(e) =>
-              setQuantity(
-                e.target.value === "" ? "" : parseInt(e.target.value, 10)
-              )
-            }
-            required
-          />
-        </div>
-        <StyledButton type="submit" className="w-full">
-          Enviar Pedido
+      <h3 className="text-xl font-bold mb-4">Orden de Producto</h3>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <Input
+          type="text"
+          name="nombre"
+          placeholder="Nombre del cliente"
+          value={formData.nombre}
+          onChange={handleInputChange}
+          required
+          disabled={loading}
+        />
+        <Input
+          type="text"
+          name="apellidos"
+          placeholder="Apellido del cliente"
+          value={formData.apellidos}
+          onChange={handleInputChange}
+          required
+          disabled={loading}
+        />
+        <Input
+          type="email"
+          name="email"
+          placeholder="Correo electrónico"
+          value={formData.email}
+          onChange={handleInputChange}
+          required
+          disabled={loading}
+        />
+        <Input
+          type="number"
+          name="quantity"
+          placeholder="Cantidad"
+          value={formData.quantity}
+          onChange={handleInputChange}
+          min={1}
+          required
+          disabled={loading}
+        />
+        <StyledButton type="submit" disabled={loading}>
+          {loading ? "Enviando..." : "Enviar"}
         </StyledButton>
       </form>
     </div>

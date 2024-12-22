@@ -9,22 +9,22 @@ interface Product {
   name: string;
   description: string;
   price: number;
-  thumbnail: string;
-  url: string;
-  size?: string; // Opcional
-  color?: string; // Opcional
+  thumbnail?: string;
+  slug: string;
+  images?: string[];
+  features?: Record<string, any>;
 }
 
 interface SelectedFilters {
-  price?: string; // '<10', '10-50', '>50' o undefined
-  size?: string; // 'S', 'M', 'L', 'XL' o undefined
-  color?: string; // 'Rojo', 'Azul', 'Verde', 'Negro' o undefined
+  price?: string;
+  size?: string;
+  color?: string;
 }
 
 export default function Page() {
-  const [products, setProducts] = useState<Product[]>([]); // Lista de productos
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]); // Lista filtrada
-  const [isLoading, setIsLoading] = useState<boolean>(true); // Indicador de carga
+  const [products, setProducts] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const filterOptions = [
     { label: 'Precio', key: 'price', options: ['<10', '10-50', '>50'] },
@@ -42,7 +42,7 @@ export default function Page() {
           if (value === '10-50') return price >= 10 && price <= 50;
           if (value === '>50') return price > 50;
         } else if (key === 'size' || key === 'color') {
-          return product[key as keyof Product] === value;
+          return product.features?.[key] === value;
         }
         return true;
       });
@@ -68,8 +68,6 @@ export default function Page() {
     fetchProducts();
   }, []);
 
-  console.log(products);
-
   if (isLoading) {
     return <div className="text-center text-white">Cargando productos...</div>;
   }
@@ -83,20 +81,18 @@ export default function Page() {
       <h1 className="text-3xl font-bold text-center mb-8">Nuestros Productos</h1>
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row gap-6">
-          {/* Panel de filtros */}
           <div className="w-full lg:w-1/4 lg:sticky lg:top-10">
             <ProductFilters filters={filterOptions} onFilterChange={applyFilters} />
           </div>
-          {/* Listado de productos */}
           <div className="flex-1 flex flex-wrap gap-6 justify-center lg:justify-start">
             {filteredProducts.map((product) => (
               <ProductCard
-                key={product.url}
+                key={product.slug}
                 title={product.name}
                 subtitle={product.description}
                 price={product.price.toString()}
-                image={product.thumbnail}
-                url={`/products/${product.url}`}
+                image={product.thumbnail || "/images/placeholder.png"}
+                url={`/products/${product.slug}`}
                 height="300px"
                 width="220px"
               />
