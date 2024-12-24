@@ -22,26 +22,26 @@ export default function Components() {
       title: "Automated Posting",
       description:
         "Schedule and automate your social media posts across multiple platforms",
-      image: "/imagenes/paisaje-1.webp",
+      image: "/images/paisaje-1.webp",
       backgroundColor: "--color5",
     },
     {
       title: "Analytics Dashboard",
       description:
         "Track your social media performance with detailed analytics",
-      image: "/imagenes/paisaje-2.webp",
+      image: "/images/paisaje-2.webp",
       backgroundColor: "--color5",
     },
     {
       title: "Content Calendar",
       description: "Plan and organize your content with our intuitive calendar",
-      image: "/imagenes/paisaje-3.avif",
+      image: "/images/paisaje-3.avif",
       backgroundColor: "--color1",
     },
     {
       title: "calendario contenido",
       description: "Plan and organize your content with our intuitive calendar",
-      image: "/imagenes/paisaje-3.avif",
+      image: "/images/paisaje-3.avif",
       backgroundColor: "--color2",
     },
     // Add more items as needed
@@ -152,61 +152,59 @@ export default function Components() {
       <PageHeader
         title="Components Next.js"
         description="This is a page to show the components and their variations of Next.js"
-        image="/imagenes/components.webp"
+        image="/images/components.webp"
       />
       <h2>Bento Grid Component</h2>
-      <div className={"grid grid-cols-3"}>
-        <BentoGrid
-          items={bentoItems}
-          disposition={[
-            [1, 2, 3],
-            [4, 4, 3],
-          ]}
-          rowHeight="100px"
-        />
-        <BentoGrid
-          items={bentoItems}
-          disposition={[
-            [1, 2, 3],
-            [1, 4, 3],
-          ]}
-          rowHeight="100px"
-        />
-        <BentoGrid
-          items={bentoItems}
-          disposition={[
-            [1, 2, 4],
-            [1, 3, 4],
-          ]}
-          rowHeight="100px"
-        />
-        <BentoGrid
-          items={bentoItems}
-          disposition={[
-            [1, 1, 1],
-            [2, 4, 3],
-          ]}
-          rowHeight="100px"
-        />
-        <BentoGrid
-          items={bentoItems}
-          disposition={[
-            [1, 4, 3],
-            [1, 4, 3],
-            [2, 2, 2],
-          ]}
-          rowHeight="100px"
-        />
-        <BentoGrid
-          items={bentoItems}
-          disposition={[
-            [1, 3, 3],
-            [2, 3, 3],
-            [2, 4, 4],
-          ]}
-          rowHeight="100px"
-        />
-      </div>
+      <BentoGrid
+        items={bentoItems}
+        disposition={[
+          [1, 2, 3],
+          [4, 4, 3],
+        ]}
+        rowHeight="100px"
+      />
+      <BentoGrid
+        items={bentoItems}
+        disposition={[
+          [1, 2, 3],
+          [1, 4, 3],
+        ]}
+        rowHeight="100px"
+      />
+      <BentoGrid
+        items={bentoItems}
+        disposition={[
+          [1, 2, 4],
+          [1, 3, 4],
+        ]}
+        rowHeight="100px"
+      />
+      <BentoGrid
+        items={bentoItems}
+        disposition={[
+          [1, 1, 1],
+          [2, 4, 3],
+        ]}
+        rowHeight="100px"
+      />
+      <BentoGrid
+        items={bentoItems}
+        disposition={[
+          [1, 4, 3],
+          [1, 4, 3],
+          [2, 2, 2],
+        ]}
+        rowHeight="100px"
+      />
+      <BentoGrid
+        items={bentoItems}
+        disposition={[
+          [1, 3, 3],
+          [2, 3, 3],
+          [2, 4, 4],
+        ]}
+        rowHeight="100px"
+      />
 
       <h2>Card Component</h2>
       <div className={"flex items-center justify-center gap-8"}>
@@ -214,13 +212,13 @@ export default function Components() {
           title="Card 1"
           subtitle="Subtitle 1"
           price="Price 1"
-          image="/imagenes/paisaje-1.webp"
+          image="/images/paisaje-1.webp"
         />
         <Card
           title="Card 2"
           subtitle="Subtitle 2"
           price="Price 2"
-          image="/imagenes/paisaje-2.webp"
+          image="/images/paisaje-2.webp"
           height="500px"
           width="500px"
         />
@@ -228,7 +226,7 @@ export default function Components() {
           title="Card 3"
           subtitle="Subtitle 3"
           price="Price 3"
-          image="/imagenes/paisaje-3.avif"
+          image="/images/paisaje-3.avif"
           height="300px"
           width="400px"
         />
@@ -236,7 +234,7 @@ export default function Components() {
           title="Card 4"
           subtitle="Subtitle 4"
           price="Price 4"
-          image="/imagenes/paisaje-1.webp"
+          image="/images/paisaje-1.webp"
           height="400px"
           width="300px"
         />
@@ -244,7 +242,7 @@ export default function Components() {
       <h2>Person Card Section Component</h2>
       <div className={"flex flex-row flex-wrap gap-8 p-8 justify-center"}>
         <PersonCard
-          imagen="/imagenes/paisaje-3.avif"
+          imagen="/images/paisaje-3.avif"
           nombre="John Doe"
           puesto="Web Developer"
           socialLinks={{
@@ -257,7 +255,7 @@ export default function Components() {
           resumeUrl="https://resume.com"
         />
         <PersonCard
-          imagen="/imagenes/paisaje-1.webp"
+          imagen="/images/paisaje-1.webp"
           nombre="John Doe Very Long Name"
           puesto="Web Developer And Much More Things That I Can't Write Here"
           socialLinks={{
@@ -269,7 +267,7 @@ export default function Components() {
           resumeUrl="https://resume.com"
         />
         <PersonCard
-          imagen="/imagenes/paisaje-2.webp"
+          imagen="/images/paisaje-2.webp"
           nombre="John Doe A Much Longer And Longer Name"
           puesto="Web Developer"
           socialLinks={{
@@ -281,7 +279,7 @@ export default function Components() {
           resumeUrl="https://resume.com"
         />
         <PersonCard
-          imagen="/imagenes/paisaje-1.webp"
+          imagen="/images/paisaje-1.webp"
           nombre="John Doe"
           puesto="Web Developer"
           socialLinks={{
@@ -291,7 +289,7 @@ export default function Components() {
           resumeUrl="https://resume.com"
         />
         <PersonCard
-          imagen="/imagenes/paisaje-2.webp"
+          imagen="/images/paisaje-2.webp"
           nombre="John Doe"
           puesto="Web Developer"
           socialLinks={{}}

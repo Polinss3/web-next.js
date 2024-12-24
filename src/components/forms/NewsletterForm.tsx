@@ -4,18 +4,18 @@ import React, { useState } from "react";
 import Input from "@/components/Layout/UI/StyledInput";
 import StyledButton from "@/components/Layout/UI/StyledButton";
 import { Toaster, toast } from "sonner";
-import axios from "axios"; // Usa Axios para llamadas HTTP
+import axios from "axios";
 import { BACK_URL } from "@/config/config";
 
 interface NewsletterFormProps {
-  onSuccess?: () => void; // Callback opcional que puede ejecutarse tras un envío exitoso
+  onSuccess?: () => void;
 }
 
 const NewsletterForm: React.FC<NewsletterFormProps> = ({ onSuccess }) => {
-  const [nombre, setNombre] = useState("");
-  const [apellidos, setApellidos] = useState("");
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false); // Indicador de carga
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,23 +23,23 @@ const NewsletterForm: React.FC<NewsletterFormProps> = ({ onSuccess }) => {
 
     try {
       const response = await axios.post(`${BACK_URL}/api/newsletter`, {
-        nombre,
-        apellidos,
+        name,
+        surname,
         email,
       });
 
       if (response.status === 200) {
-        setNombre("");
-        setApellidos("");
+        setName("");
+        setSurname("");
         setEmail("");
         toast.success("Suscripción exitosa");
-        if (onSuccess) onSuccess(); // Ejecuta el callback si está definido
+        if (onSuccess) onSuccess();
       }
     } catch (error) {
       console.error(error);
       toast.error("Error al suscribirse");
     } finally {
-      setLoading(false); // Termina la carga
+      setLoading(false);
     }
   };
 
@@ -50,23 +50,23 @@ const NewsletterForm: React.FC<NewsletterFormProps> = ({ onSuccess }) => {
       <form onSubmit={handleSubmit} className="space-y-4">
         <Input
           type="text"
-          placeholder="Nombre"
-          value={nombre}
-          onChange={(e) => setNombre(e.target.value)}
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           required
-          disabled={loading} // Deshabilitar inputs durante la carga
+          disabled={loading}
         />
         <Input
           type="text"
-          placeholder="Apellidos"
-          value={apellidos}
-          onChange={(e) => setApellidos(e.target.value)}
+          placeholder="Surname"
+          value={surname}
+          onChange={(e) => setSurname(e.target.value)}
           required
           disabled={loading}
         />
         <Input
           type="email"
-          placeholder="Correo electrónico"
+          placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required

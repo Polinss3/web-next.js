@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface FilterOption {
   label: string;
@@ -7,13 +7,37 @@ interface FilterOption {
 }
 
 interface ProductFiltersProps {
-  filters: FilterOption[];
+  products: any[]; // Lista de productos para extraer automáticamente las opciones
   onFilterChange: (selectedFilters: Record<string, string | null>) => void;
   layout?: 'vertical' | 'horizontal';
 }
 
-export default function ProductFilters({ filters, onFilterChange, layout = 'vertical' }: ProductFiltersProps) {
+export default function ProductFilters({ products, onFilterChange, layout = 'vertical' }: ProductFiltersProps) {
+  const [filters, setFilters] = useState<FilterOption[]>([]);
   const [selectedFilters, setSelectedFilters] = useState<Record<string, string | null>>({});
+
+  // Construir filtros dinámicamente a partir de los productos
+  useEffect(() => {
+    const categoryOptions = Array.from(new Set(products.map((p) => p.category).filter(Boolean)));
+    const subcategoryOptions = Array.from(new Set(products.map((p) => p.subcategory).filter(Boolean)));
+    const sizeOptions = Array.from(
+      new Set(
+        products
+          .flatMap((p) => (typeof p.features?.size === 'string' ? [p.features.size] : []))
+          .filter(Boolean)
+      )
+    );
+    const priceOptions = ['<10', '10-50', '>50'];
+
+    const dynamicFilters: FilterOption[] = [
+      { label: 'Categoría', key: 'category', options: categoryOptions },
+      { label: 'Subcategoría', key: 'subcategory', options: subcategoryOptions },
+      { label: 'Talla', key: 'size', options: sizeOptions },
+      { label: 'Precio', key: 'price', options: priceOptions },
+    ];
+
+    setFilters(dynamicFilters);
+  }, [products]);
 
   const handleFilterChange = (key: string, value: string | null) => {
     const newFilters = { ...selectedFilters, [key]: value };
